@@ -275,4 +275,26 @@ async function viewEmployeesByManager() {
         console.log("Removed role from the database");
       
         loadMainPrompts();
+      }
+      async function viewDepartments() {
+        const departments = await db.findAllDepartments();
+      
+        console.log("\n");
+        console.table(departments);
+      
+        loadMainPrompts();
+      }
+      async function addDepartment() {
+        const department = await prompt([
+          {
+            name: "name",
+            message: "What is the name of the department?"
+          }
+        ]);
+      
+        await db.createDepartment(department);
+      
+        console.log(`Added ${department.name} to the database`);
+      
+        loadMainPrompts();
       }          
