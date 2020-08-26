@@ -212,4 +212,12 @@ async function viewEmployeesByManager() {
         console.log("Updated employee's role");
       
         loadMainPrompts();
+      }
+      async function viewRoles() {
+        const roles = await db.findAllRoles();
+      
+        console.log("\n");
+        console.table(roles);
+      
+        loadMainPrompts();
       }          
