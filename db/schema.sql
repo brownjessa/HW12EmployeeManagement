@@ -1,40 +1,61 @@
-DROP DATABASE IF EXISTS employees;
-CREATE DATABASE employees;
-USE employees;
+DROP DATABASE IF EXISTS employee_db;
 
-CREATE TABLE department
+CREATE DATABASE employee_db;
+
+USE employee_db;
+
+
+-- THIS STORES PASSWORDS IN PLAIN TEXT AND IS CLEARLY MORONIC --
+-- IT'S JUST FOR FUNZIES --
+CREATE TABLE users
 (
-    id INT
+    id INT NOT NULL
     AUTO_INCREMENT,
-    name VARCHAR
-    (30) UNIQUE NOT NULL,
-    PRIMARY KEY
+  username VARCHAR
+    (45) NOT NULL,
+  password VARCHAR
+    (45) NOT NULL,
+  PRIMARY KEY
     (id)
 );
 
-    CREATE TABLE role
+    CREATE TABLE employees
     (
-        id INT
+        id INT NOT NULL
         AUTO_INCREMENT,
-    title VARCHAR
-        (30) UNIQUE NOT NULL,
-    salary DECIMAL
-        (10,2) UNSIGNED NOT NULL,
-    department_id INT NOT NULL,
-    PRIMARY KEY
+  first_name VARCHAR
+        (30) NOT NULL,
+  last_name VARCHAR
+        (30) NOT NULL,
+  role_id INT REFERENCES roles
+        (id),
+  manager_id INT REFERENCES departments
+        (department_id),
+  PRIMARY KEY
         (id)
 );
 
-        CREATE TABLE employee
+        CREATE TABLE roles
         (
-            id INT
+            id INT NOT NULL
             AUTO_INCREMENT,
-    first_name VARCHAR
+  title VARCHAR
             (30) NOT NULL,
-    last_name VARCHAR
-            (30) NOT NULL,
-    role_id INT UNSIGNED NOT NULL,
-    manager_id INT,
-    PRIMARY KEY
+  salary DECIMAL,
+  department_id INT REFERENCES departments
+            (id),
+  PRIMARY KEY
             (id)
+);
+
+            CREATE TABLE departments
+            (
+                id INT NOT NULL
+                AUTO_INCREMENT,
+  manager_name VARCHAR
+                (30),
+  department_name VARCHAR
+                (30),
+  PRIMARY KEY
+                (id)
 );
